@@ -22,6 +22,7 @@ class ProdukResource extends Resource
 protected static ?string $slug = 'produk'; // Ubah slug jadi "produk"
 protected static ?string $navigationLabel = 'Produk'; // Label di sidebar tetap "Produk"
 protected static ?string $pluralModelLabel = 'Produk'; // Nama plural tetap "Produk"
+protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
 
     public static function form(Form $form): Form
