@@ -113,7 +113,7 @@ class BahanBakuResource extends Resource
 
                 TextColumn::make('jumlah')
                 ->sortable(),
-                ImageColumn::make('gambar') // Menampilkan gambar di tabel
+                ImageColumn::make('gambar') // Menampilkan gambar di tabel ya
                 ->label('Gambar')
                 ->size(50), // Menyesuaikan ukuran thumbnail
                 
