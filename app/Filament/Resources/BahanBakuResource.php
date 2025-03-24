@@ -60,18 +60,22 @@ class BahanBakuResource extends Resource
                 ->required(),
 
                 TextInput::make('harga_satuan')
-                    ->required()
-                    ->minValue(0) // Nilai minimal 0 (opsional jika tidak ingin ada harga negatif)
-                    ->reactive() // Menjadikan input reaktif terhadap perubahan
-                    ->extraAttributes(['id' => 'harga-bahan baku']) // Tambahkan ID untuk pengikatan JavaScript
-                    ->placeholder('Masukkan harga bahan baku') // Placeholder untuk membantu pengguna
-                    ->live()
-                    ->afterStateUpdated(fn ($state, callable $set) => 
-                        $set('harga_satuan', number_format((int) str_replace('.', '', $state), 0, ',', '.'))
-                      )
-                ,
+                ->required()
+                ->numeric()
+                ->minValue(0)           
+                ->type('number')
+                ->placeholder('Masukkan harga bahan baku')
+                ->formatStateUsing(fn ($state) => $state ? 'Rp ' . number_format((int)$state, 0, ',', '.') : '')
+                ->dehydrateStateUsing(function ($state) {
+                    return (int) preg_replace('/[^0-9]/', '', $state);
+                }),
+              
                 TextInput::make('jumlah')
                     ->required()
+                    ->rules(['integer'])
+                    ->validationMessages([
+                        'integer' => 'Input hanya boleh berupa angka tanpa huruf atau simbol.',
+                    ])  
                     ->placeholder('Masukkan stok bahan baku') // Placeholder untuk membantu pengguna
                     ->minValue(0)
                 ,
@@ -91,26 +95,28 @@ class BahanBakuResource extends Resource
                     ->searchable(),
                 // agar bisa di search
                 TextColumn::make('nama_bahan_baku')
-                    ->searchable()
-                    ->sortable(),
+                    ->searchable(),
                 BadgeColumn::make('satuan')
                 ->label('satuan')
                 ->color(fn (string $state): string => match ($state) {
                     'Kg' => 'gray',
                     'Liter' => 'yellow',
                     'Pcs' => 'success',
-                    'Gram' => 'Danger',
+                    'Gram' => 'warning',
                 }),
                 TextColumn::make('harga_satuan')
-                    ->label('Harga Barang')
-                    ->formatStateUsing(fn (string|int|null $state): string => rupiah($state))
-                    ->extraAttributes(['class' => 'text-right']) // Tambahkan kelas CSS untuk rata kanan
-                    ->sortable()
+                ->label('Harga Barang')
+                ->formatStateUsing(fn (string|int|null $state): string => 'Rp ' . number_format((int)$state, 0, ',', '.'))
+                ->extraAttributes(['class' => 'text-right'])
+                ->sortable()
                 ,
-                TextColumn::make('jumlah'),
+
+                TextColumn::make('jumlah')
+                ->sortable(),
                 ImageColumn::make('gambar') // Menampilkan gambar di tabel
                 ->label('Gambar')
                 ->size(50), // Menyesuaikan ukuran thumbnail
+                
             ])
             ->filters([
                 //
