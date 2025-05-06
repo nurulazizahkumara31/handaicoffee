@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+//tambahan
+use App\Models\Order;
+use App\Models\OrderDetail;
+use App\Models\Produk;
+use App\Models\pelanggan;
+use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
@@ -85,6 +91,74 @@ public function destroy($id)
     }
 
     return redirect()->back()->with('success', 'Item berhasil dihapus dari keranjang.');
+}
+
+
+public function checkout(Request $request)
+{
+    $cart = session()->get('cart', []);
+
+    if (empty($cart)) {
+        return redirect()->route('cart.index')->with('error', 'Keranjang Anda kosong.');
+    }
+
+    // Validasi stok
+    foreach ($cart as $productId => $item) {
+        $product = Produk::find($productId);
+        if (!$product || $product->stock < $item['quantity']) {
+            return back()->with('error', 'Stok tidak cukup untuk produk: ' . $item['name']);
+        }
+    }
+
+    // Hitung total + shipping
+    $shipping = 5000;
+    $total = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']) + $shipping;
+
+    // Ambil data pelanggan dari user login
+    $user = auth()->user();
+    $pelanggan = Pelanggan::firstOrCreate(
+        ['nama' => $user->name],
+        [
+            'email' => $user->email ?? null,
+            'telepon' => '0000000000', // Ubah sesuai data inputan jika tersedia
+            'alamat' => 'Alamat default', // Bisa tambahkan input di form nanti
+        ]
+    );
+
+    DB::beginTransaction();
+    try {
+        $order = Order::create([
+            'user_id' => $user->id,
+            'pelanggan_id' => $pelanggan->id,
+            'items' => json_encode($cart),
+            'total_price' => $total,
+            'status' => 'pending',
+        ]);
+
+        foreach ($cart as $productId => $item) {
+            OrderDetail::create([
+                'order_id' => $order->id,
+                'product_id' => $productId,
+                'quantity' => $item['quantity'],
+                'price' => $item['price'],
+                'subtotal' => $item['price'] * $item['quantity'],
+            ]);
+
+            // Kurangi stok
+            $product = Produk::find($productId);
+            $product->stock -= $item['quantity'];
+            $product->save();
+        }
+
+        DB::commit();
+        session()->forget('cart');
+
+        return redirect()->route('payment.page', ['order' => $order->id])->with('success', 'Silakan lanjutkan pembayaran.');
+
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return back()->with('error', 'Gagal checkout: ' . $e->getMessage());
+    }
 }
 
 
