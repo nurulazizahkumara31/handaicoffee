@@ -10,7 +10,8 @@ class Pegawai extends Model
     use HasFactory;
 
     protected $table = 'pegawai'; // Pastikan tabel tidak pakai "s"
-
+    protected $primaryKey = 'id_pegawai';
+    
     protected $fillable = [
         'id_pegawai',
         'nama_pegawai',
