@@ -10,6 +10,9 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Forms\Components\Select;
+use Filament\Tables\Columns\BadgeColumn;
+use App\Filament\Widgets\PresensiChart;
 
 
 class PresensiResource extends Resource
@@ -23,6 +26,7 @@ class PresensiResource extends Resource
 
     public static function form(Form $form): Form
 {
+
     return $form
         ->schema([
             Forms\Components\Select::make('user_id')
@@ -37,6 +41,16 @@ class PresensiResource extends Resource
             Forms\Components\TimePicker::make('jam_masuk'),
 
             Forms\Components\TimePicker::make('jam_keluar'),
+
+            Select::make('status')
+    ->label('Status Kehadiran')
+    ->options([
+        'Hadir' => 'Hadir',
+        'Alfa' => 'Alfa',
+        'Izin' => 'Izin',
+        'Sakit' => 'Sakit',
+    ])
+    ->required()
         ]);
 }
 
@@ -61,7 +75,15 @@ class PresensiResource extends Resource
                     Tables\Columns\TextColumn::make('tanggal')->date(),
                     Tables\Columns\TextColumn::make('jam_masuk')->time(),
                     Tables\Columns\TextColumn::make('jam_keluar')->time(),
-                    
+
+                 BadgeColumn::make('status')
+    ->label('Status')
+    ->colors([
+        'success' => 'Hadir',
+        'danger' => 'Alfa',
+        'warning' => 'Izin',
+        'info' => 'Sakit',
+    ]),   
             ])
             ->filters([
                 Tables\Filters\Filter::make('Hari Ini')
@@ -90,4 +112,6 @@ class PresensiResource extends Resource
             'edit' => Pages\EditPresensi::route('/{record}/edit'),
         ];
     }
+
 }
+

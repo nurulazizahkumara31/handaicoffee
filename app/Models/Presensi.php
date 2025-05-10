@@ -9,11 +9,13 @@ class Presensi extends Model
     protected $table = 'presensis';
 
     protected $fillable = [
-        'user_id',
         'tanggal',
         'jam_masuk',
         'jam_keluar',
+        'pegawai_id',
+        'status', // tambah ini
     ];
+    
 
     public function pegawai()
     {
