@@ -57,7 +57,7 @@
 
     <!-- Register Link -->
     <div class="text-center mt-4">
-      <p class="text-sm">Don't have an account? <a href="#" class="text-[var(--primary-green)] hover:underline">Register now</a></p>
+      <p class="text-sm">Don't have an account? <a href="/register" class="text-[var(--primary-green)] hover:underline">Register now</a></p>
     </div>
 
     <!-- Back to Home Button -->

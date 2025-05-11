@@ -67,6 +67,12 @@
       <span id="total" class="text-green-700">Rp{{ number_format($total + $shipping, 0, ',', '.') }}</span>
     </div>
   </div>
+  <form action="{{ route('cart.checkout') }}" method="POST" class="text-center mt-6">
+    @csrf
+    <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700">
+        Checkout Sekarang
+    </button>
+</form>
 
   @else
   <div class="text-center text-gray-500 mt-12">
