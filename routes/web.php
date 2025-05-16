@@ -1,67 +1,43 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RegisterController;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-//home
-Route::get('/', function () {
-    return view('index');
-});
-
-
-// Route ke halaman dashboard
-Route::get('/dashboard', function () {
-    return view('dashboard');})
-->name('das')
-->middleware('auth');
-
-
-// Route untuk menampilkan halaman login (GET)
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-
-// Route untuk memproses login (POST)
-Route::post('/login', [LoginController::class, 'login']);
-
-Route::get('/register', [RegisterController::class, 'show'])->name('register');
-Route::post('/register', [RegisterController::class, 'store']);
-
-
-
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout')
-->middleware('auth');
-
-Route::get('/menu', [ProductController::class, 'index'])->name('menu')
-->middleware('auth');;
-Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
-// routes/web.php
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\SettingsController;
 
-Route::post('/cart/add/{id}', [CartController::class, 'addToCart'])->name('cart.add');
-Route::get('/cart', [CartController::class, 'index'])->name('cart.index')
-->middleware('auth');;
-Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.delete');
+// Halaman utama
+Route::get('/', function () {
+    return Auth::check() ? redirect('/dashboard') : view('index');
+})->name('home');
+
+// Rute autentikasi
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login')->middleware('guest');
+Route::post('/login', [LoginController::class, 'login']);
+Route::get('/register', [RegisterController::class, 'show'])->name('register')->middleware('guest');
+Route::post('/register', [RegisterController::class, 'store']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
+
+// Rute terproteksi
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    Route::get('/menu', [ProductController::class, 'index'])->name('menu');
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/add/{id}', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.delete');
+    Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+    Route::get('/payment/{order}', [PaymentController::class, 'show'])->name('payment.page');
+});
 
 
-// Rute untuk halaman konfirmasi
-
-Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout')
-->middleware('auth');
-
-Route::get('/payment/{order}', [PaymentController::class, 'show'])->name('payment.page')->middleware('auth');
+// Rute public
+Route::get('/about', [PageController::class, 'about'])->name('about');
+Route::get('/contact', [PageController::class, 'contact'])->name('contact');
+Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
