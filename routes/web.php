@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/tes-rupiah', function () {
+    return rupiah(1500000); // Harusnya keluar: Rp 1.500.000
+});
