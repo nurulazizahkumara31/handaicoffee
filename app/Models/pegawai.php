@@ -19,4 +19,11 @@ class Pegawai extends Model
         'alamat',
         'posisi',
     ];
+
+    // relasi ke gaji (jika ada)
+    public function gajis()
+    {
+        return $this->hasMany(Gaji::class, 'pegawai_id', 'id_pegawai');
+    }
+
 }
