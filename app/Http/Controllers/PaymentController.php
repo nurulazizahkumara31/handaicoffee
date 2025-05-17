@@ -11,6 +11,7 @@ use Midtrans\Notification;
 use Exception;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\InvoiceMail;
+use App\Models\Payment;
 
 
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -363,6 +364,16 @@ class PaymentController extends Controller
             if ($notification->transaction_status == "settlement") {
                 $order->status = "paid";
                 $order->save();
+
+                // ⬇️ SIMPAN DATA PEMBAYARAN KE TABEL payments
+                Payment::create([
+                    'order_id' => $order->id,
+                    'midtrans_order_id' => $notification->order_id,
+                    'transaction_status' => $notification->transaction_status,
+                    'gross_amount' => $notification->gross_amount,
+                    'payment_type' => $notification->payment_type,
+                    'transaction_time' => $notification->transaction_time,
+                ]);
                 
                 // Kirim email invoice ke customer
                 Mail::to($order->user->email)->send(new InvoiceMail($order));
