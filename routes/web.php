@@ -37,7 +37,12 @@ Route::middleware('auth')->group(function () {
 });
 
 
+Route::get('/tes-rupiah', function () {
+    return rupiah(1500000); // Harusnya keluar: Rp 1.500.000
+});
+
 // Rute public
 Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
+
