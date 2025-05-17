@@ -10,6 +10,8 @@
   
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <script src="//unpkg.com/alpinejs" defer></script>
 </head>
 <body class="bg-white text-[var(--primary-green)] min-h-screen">
   <div class="container mx-auto px-4 py-8">

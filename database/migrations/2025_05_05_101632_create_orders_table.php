@@ -12,15 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id(); // id pesanan
-            $table->unsignedBigInteger('user_id'); // relasi ke users
-            $table->unsignedBigInteger('pelanggan_id'); // relasi ke pelanggan
-            $table->json('items'); // data produk dalam bentuk json
-            $table->integer('total_price'); // total harga
-            $table->enum('status', ['pending', 'paid'])->default('pending'); // status pesanan
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('pelanggan_id');
+            $table->json('items');
+            $table->string('voucher_code')->nullable(); // ✅ Tanpa after
+            $table->integer('voucher_discount')->default(0); // ✅ Tanpa after
+            $table->integer('total_price');
+            $table->enum('status', ['pending', 'paid'])->default('pending');
             $table->timestamps();
 
-            // Relasi foreign key
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('pelanggan_id')->references('id')->on('pelanggan')->onDelete('cascade');
         });
@@ -29,8 +30,14 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
-        Schema::dropIfExists('orders');
-    }
+    public function down()
+{
+    Schema::table('orders', function (Blueprint $table) {
+        $table->dropColumn(['voucher_code', 'voucher_discount']);
+    });
+}
+
+    
 };
+
+

@@ -12,11 +12,13 @@ class Order extends Model
     protected $table = 'orders';
 
     protected $fillable = [
-        'no_invoice',
         'user_id',
         'pelanggan_id',
         'items',
         'total_price',
+        'shipping_cost',       // baru
+        'voucher_code',        // baru
+        'voucher_discount',    // baru
         'status',
     ];
 
