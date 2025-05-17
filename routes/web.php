@@ -5,6 +5,9 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\PresensiExportController;
+use App\Http\Controllers\PegawaiController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,7 +27,7 @@ Route::get('/', function () {
 Route::get('/', function () {
     return view('index');
 });
-
+Route::get('/presensi/export-pdf', [PresensiExportController::class, 'exportPdf'])->name('presensi.export.pdf');
 
 // Route ke halaman dashboard
 Route::get('/dashboard', function () {
@@ -65,3 +68,6 @@ Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.c
 ->middleware('auth');
 
 Route::get('/payment/{order}', [PaymentController::class, 'show'])->name('payment.page')->middleware('auth');
+
+Route::get('/pegawai/create', [PegawaiController::class, 'create'])->name('pegawai.create');Route::get('/export/presensi/pdf', [PresensiExportController::class, 'exportPdf'])
+    ->name('export.presensi.pdf');

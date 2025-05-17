@@ -19,4 +19,8 @@ class Pegawai extends Model
         'alamat',
         'posisi',
     ];
+ public function presensis()
+{
+    return $this->hasMany(Presensi::class, 'user_id', 'id_pegawai');
+}
 }

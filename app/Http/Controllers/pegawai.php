@@ -6,6 +6,19 @@ use Illuminate\Http\Request;
 
 class pegawai extends Controller
 {
+    public function exportPdf()
+{
+    $presensis = Presensi::with('pegawai')->get(); // relasi 'pegawai'
+
+    $pdf = Pdf::loadView('exports.presensi-pdf', compact('presensis'));
+    return $pdf->download('data-presensi.pdf');
+}
+    // App\Models\Presensi.php
+    public function pegawai()
+    {
+    return $this->belongsTo(Pegawai::class);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -62,3 +75,4 @@ class pegawai extends Controller
         //
     }
 }
+

@@ -12,6 +12,7 @@ return new class extends Migration {
 
             // Kolom foreign key
             $table->unsignedBigInteger('user_id');
+            $table->foreign('pegawai_id')->references('id_pegawai')->on('pegawai');
 
             $table->date('tanggal');
             $table->time('jam_masuk')->nullable();
