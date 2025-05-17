@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'user_group'
     ];
 
     /**
@@ -28,7 +29,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $hidden = [
+    protected $hidden = [ 
         'password',
         'remember_token',
     ];
@@ -42,4 +43,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function pelanggan()
+    {
+        return $this->hasOne(Pelanggan::class);
+    }
+    public function gajis()
+{
+    return $this->hasMany(Gaji::class);
+}
+
+    
 }

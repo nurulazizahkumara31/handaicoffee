@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (!Schema::hasTable('presensis')) {
         Schema::create('supplier', function (Blueprint $table) {
             $table->id();
             $table->string('kode_supplier');
@@ -19,7 +20,7 @@ return new class extends Migration
             $table->string('alamat');
             $table->timestamps();
         });
-    }
+    }}
 
     /**
      * Reverse the migrations.

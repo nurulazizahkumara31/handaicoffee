@@ -10,7 +10,8 @@ class Pegawai extends Model
     use HasFactory;
 
     protected $table = 'pegawai'; // Pastikan tabel tidak pakai "s"
-
+    protected $primaryKey = 'id_pegawai';
+    
     protected $fillable = [
         'id_pegawai',
         'nama_pegawai',
@@ -18,4 +19,11 @@ class Pegawai extends Model
         'alamat',
         'posisi',
     ];
+
+    // relasi ke gaji (jika ada)
+    public function gajis()
+    {
+        return $this->hasMany(Gaji::class, 'pegawai_id', 'id_pegawai');
+    }
+
 }
