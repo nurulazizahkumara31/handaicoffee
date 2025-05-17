@@ -12,9 +12,10 @@ class Presensi extends Model
         'tanggal',
         'jam_masuk',
         'jam_keluar',
-        'pegawai_id',
-        'status', // tambah ini
+        'user_id',
+        'status',
     ];
+    
     
 
     public function pegawai()
