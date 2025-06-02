@@ -26,6 +26,7 @@ class CoaResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationGroup = 'Master Data';
     public static function form(Form $form): Form
     {
         return $form
@@ -35,6 +36,7 @@ class CoaResource extends Resource
                     TextInput::make('kode_akun')
                         ->required()
                         ->placeholder('Masukkan kode akun')
+                        ->unique(ignoreRecord: true)
                     ,
                     TextInput::make('header_akun')
                         ->required()
