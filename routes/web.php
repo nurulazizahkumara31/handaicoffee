@@ -44,10 +44,15 @@ Route::get('/dashboard', function () {
 
 
 // Route untuk menampilkan halaman login (GET)
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+// Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 
+//     return Auth::check() ? redirect('/dashboard') : view('index');
+// })->name('home');
+// Route untuk menampilkan halaman home atau redirect
+Route::get('/login', function () {
     return Auth::check() ? redirect('/dashboard') : view('index');
 })->name('home');
+
 
 
 // Rute autentikasi
