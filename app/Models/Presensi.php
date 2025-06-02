@@ -9,6 +9,7 @@ class Presensi extends Model
     protected $table = 'presensis';
 
     protected $fillable = [
+        'user_id',
         'tanggal',
         'jam_masuk',
         'jam_keluar',
@@ -18,8 +19,12 @@ class Presensi extends Model
     
     
 
-    public function pegawai()
-    {
-        return $this->belongsTo(Pegawai::class, 'user_id', 'id_pegawai');
-    }
+  public function pegawai()
+{
+    return $this->belongsTo(Pegawai::class, 'user_id', 'id_pegawai');
+}
+
+
+    
+
 }
