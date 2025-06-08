@@ -26,23 +26,23 @@ class PaymentController extends Controller
 
         // Ambil voucher aktif dan belum expired
         $availableVouchers = Voucher::where('active', true)
-            ->where(function ($query) {
-                $query->whereNull('expiry_date')
-                    ->orWhere('expiry_date', '>=', now());
-            })
-            ->get()
-            ->map(function ($voucher) {
-                return [
-                    'code' => $voucher->code,
-                    'description' => $voucher->description,
-                    'type' => $voucher->type,
-                    'value' => $voucher->value,
-                    'start_date' => $voucher->start_date ? $voucher->start_date->format('d-m-Y') : '-',
-                    'expiry_date' => $voucher->expiry_date ? $voucher->expiry_date->format('d-m-Y') : '-',
-                    'active' => $voucher->active,
-                    'discount' => 0,
-                ];
-            });
+            ->whereDate('start_date', '<=', now())
+            ->whereDate('expiry_date', '>=', now())
+            ->get();
+
+            // ->get()
+            // ->map(function ($voucher) {
+            //     return [
+            //         'code' => $voucher->code,
+            //         'description' => $voucher->description,
+            //         'type' => $voucher->type,
+            //         'value' => $voucher->value,
+            //         'start_date' => $voucher->start_date ? $voucher->start_date->format('d-m-Y') : '-',
+            //         'expiry_date' => $voucher->expiry_date ? $voucher->expiry_date->format('d-m-Y') : '-',
+            //         'active' => $voucher->active,
+            //         'discount' => 0,
+            //     ];
+            // });
 
 
         return view('payment.index', compact('order', 'availableVouchers'));
