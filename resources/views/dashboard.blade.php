@@ -35,10 +35,10 @@
 
         <!-- Menu -->
         <div class="hidden md:flex space-x-6 items-center">
-          <a href="" class="hover:text-[var(--secondary-green)] text-[var(--primary-green)]">Home</a>
+          <a href="" class="hover:text-[var(--secondary-green)] text-[var(--primary-green)] font-bold">Home</a>
           <a href="/menu" class="hover:text-[var(--secondary-green)] text-[var(--primary-green)]">Order</a>
-          <a href="#" class="hover:text-[var(--secondary-green)] text-[var(--primary-green)]">About Us</a>
-          <a href="#" class="hover:text-[var(--secondary-green)] text-[var(--primary-green)]">Contact</a>
+          <a href="/about" class="hover:text-[var(--secondary-green)] text-[var(--primary-green)]">About Us</a>
+          <a href="/contact" class="hover:text-[var(--secondary-green)] text-[var(--primary-green)]">Contact</a>
 
           @auth
             <!-- Dropdown Menu -->
@@ -52,8 +52,8 @@
               </button>
               <div class="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md text-[var(--primary-green)] hidden group-hover:block" id="dropdown-menu">
                 <a href="/profile" class="block px-4 py-2 text-sm">Profil</a>
-                <a href="#" class="block px-4 py-2 text-sm">Order History</a>
-                <a href="#" class="block px-4 py-2 text-sm">Settings</a>
+                <a href="/order_history" class="block px-4 py-2 text-sm">Order History</a>
+                <a href="/settings" class="block px-4 py-2 text-sm">Settings</a>
                 <form method="POST" action="{{ route('logout') }}">
                   @csrf
                   <button type="submit" class="w-full text-left px-4 py-2 text-sm text-red-500 font-bold">Logout</button>
@@ -72,16 +72,19 @@
   <!-- Hero Section -->
   <section class="container mx-auto px-4 py-12 flex flex-col md:flex-row items-center justify-between">
     <div class="md:w-1/2 mb-8 md:mb-0">
-      <h1 class="text-4xl md:text-5xl font-bold mb-4 text-[var(--primary-green)]">Brewed Coffee for Your Soul</h1>
-      <p class="mb-6 text-[var(--primary-green)]">
-        At Handai Coffee, every sip tells a story. Enjoy a perfect blend of aroma, taste, and passion — from beans to your cup.
-      </p>
-      <a href="#products" class="bg-[var(--primary-green)] hover:bg-green-700 text-white font-bold py-2 px-6 rounded">
+      <h1 class="text-4xl md:text-5xl font-bold mb-5 text-[var(--primary-green)]">Brewed Coffee for Your Soul</h1>
+        <p class="mb-3">
+        At Handai Coffee, every sip tells a story.<br>
+          Nikmati perpaduan aroma dan rasa yang khas dari biji pilihan hingga ke cangkir Anda. 
+          <br> <br> Coba varian favorit kami, Susu Kurma yang manis alami dan menyegarkan atau Kopi Susu Gula Aren dengan rasa klasik yang kaya dan autentik. 
+        </p>
+      <a href="/login" class="mt-10 inline-block bg-[var(--primary-green)] hover:bg-green-700 text-white font-bold py-2 px-6 rounded">
         Order Now
       </a>
     </div>
     <div class="md:w-1/2 text-center">
-      <img src="images/53878199057.png" alt="Coffee Product" class="mx-auto max-h-80">
+    <img src="{{ asset('images/mockupdash.png') }}" alt="Coffee Product" class="mx-auto w-[100%] md:w-[100%] max-w-[550px]">
+
     </div>
   </section>
 

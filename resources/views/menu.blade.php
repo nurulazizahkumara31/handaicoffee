@@ -35,8 +35,8 @@
         <!-- Menu -->
         <div class="hidden md:flex space-x-6 items-center">
           <a href="/dashboard" class="hover:text-[var(--secondary-green)] text-[var(--primary-green)]">Home</a>
-          <a href="/menu" class="hover:text-[var(--secondary-green)] text-[var(--primary-green)]">Order</a>
-          <a href="#" class="hover:text-[var(--secondary-green)] text-[var(--primary-green)]">About Us</a>
+          <a href="/menu" class="hover:text-[var(--secondary-green)] text-[var(--primary-green)] font-bold">Order</a>
+          <a href="/about" class="hover:text-[var(--secondary-green)] text-[var(--primary-green)]">About Us</a>
           <a href="#" class="hover:text-[var(--secondary-green)] text-[var(--primary-green)]">Contact</a>
 
           @auth
@@ -50,8 +50,8 @@
               </button>
               <div class="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md text-[var(--primary-green)] hidden" id="dropdown-menu">
                 <a href="/profile" class="block px-4 py-2 text-sm">Profil</a>
-                <a href="#" class="block px-4 py-2 text-sm">Order History</a>
-                <a href="#" class="block px-4 py-2 text-sm">Settings</a>
+                <a href="/order_history" class="block px-4 py-2 text-sm">Order History</a>
+                <a href="/settings" class="block px-4 py-2 text-sm">Settings</a>
                 <form method="POST" action="{{ route('logout') }}">
                   @csrf
                   <button type="submit" class="w-full text-left px-4 py-2 text-sm text-red-500 font-bold">Logout</button>
