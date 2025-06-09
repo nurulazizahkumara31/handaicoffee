@@ -1,3 +1,15 @@
+@if(session('error'))
+    <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
+        {{ session('error') }}
+    </div>
+@endif
+
+@if(session('success'))
+    <div class="bg-green-100 text-green-700 p-3 rounded mb-4">
+        {{ session('success') }}
+    </div>
+@endif
+
 @extends('layouts.app')
 
 @section('content')
@@ -70,7 +82,7 @@
   <form action="{{ route('cart.checkout') }}" method="POST" class="text-center mt-6">
     @csrf
     <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700">
-        Checkout Sekarang
+        Checkout
     </button>
 </form>
 

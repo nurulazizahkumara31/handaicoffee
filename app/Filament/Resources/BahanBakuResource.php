@@ -34,7 +34,7 @@ class BahanBakuResource extends Resource
     protected static ?string $model = BahanBaku::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
+    protected static ?string $navigationGroup = 'Master Data';
     public static function form(Form $form): Form
     {
         return $form

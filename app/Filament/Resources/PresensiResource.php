@@ -138,5 +138,6 @@ public function pegawai()
     return $this->belongsTo(User::class, 'pegawai_id'); // atau Pegawai::class jika beda model
 }
 
+    
 }
 
