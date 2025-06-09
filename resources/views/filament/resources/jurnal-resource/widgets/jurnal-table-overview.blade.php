@@ -1,4 +1,7 @@
 <?php
+
+    
+    
     if (!function_exists('rupiah')) {
         function rupiah($angka) {
             return 'Rp ' . number_format($angka, 0, ',', '.');
@@ -8,7 +11,7 @@
 
 <x-filament-widgets::widget>
     <x-filament::section>
-        
+
         <div class="overflow-x-auto">
 
             <!-- Filter Periode Jurnal -->
@@ -16,8 +19,7 @@
 
             <!-- Tambahan filter -->
             <div class="row">
-
-          
+                
             <form wire:submit.prevent="filterJurnal">
                 <label for="periode">Pilih Periode:</label>
                 <input type="month" wire:model="periode" id="periode" class="border rounded px-2 py-1">
@@ -28,7 +30,7 @@
                 <br><br>
                
                 <div class="col-sm-12" style="background-color:white;" align="center">
-                    <b>Toko Mukena</b><br>
+                    <b>Handai Coffee</b><br>
                     <b>Jurnal Umum</b><br>
                     <b>Periode {{ $periode ? \Carbon\Carbon::createFromFormat('Y-m', $periode)->translatedFormat('F Y') : now()->translatedFormat('F Y') }} </b><br>
                 </div>

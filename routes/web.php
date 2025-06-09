@@ -141,5 +141,3 @@ Route::get('/payment/{orderId}/invoice-pdf', [PaymentController::class, 'downloa
 
 //api
 Route::get('/api/news', [App\Http\Controllers\NewsController::class, 'index']);
-
-

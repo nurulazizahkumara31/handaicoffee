@@ -17,6 +17,7 @@ class Payment extends Model
         'gross_amount',
         'payment_type',
         'transaction_time',
+        'jurnal_created',
     ];
 
     // Relasi optional: satu pembayaran milik satu order
