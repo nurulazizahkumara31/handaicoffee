@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-function rupiah($angka) {
-    return 'Rp ' . number_format($angka, 0, ',', '.');
-}
+// function rupiah($angka) {
+//     return 'Rp ' . number_format($angka, 0, ',', '.');
+// }
 
 use App\Filament\Resources\JurnalResource\Pages;
 use App\Filament\Resources\JurnalResource\RelationManagers;

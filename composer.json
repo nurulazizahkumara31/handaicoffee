@@ -6,7 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
-        "barryvdh/laravel-dompdf": "^3.1",
+        "barryvdh/laravel-dompdf": "*",
         "filament/filament": "^3.2",
         "filament/widgets": "^3.3",
         "guzzlehttp/guzzle": "^7.2",
@@ -26,16 +26,14 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/",
-            "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+          "App\\": "app/",
+          "Database\\Factories\\": "database/factories/",
+          "Database\\Seeders\\": "database/seeders/"
         },
-        "autoload": {
-            "files": [
-                "app/helpers.php"
-            ]
-        } 
-    },
+        "files": [
+          "app/helpers/bantuan.php"
+        ]
+      },
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"

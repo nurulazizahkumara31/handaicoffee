@@ -9,6 +9,20 @@ namespace App\Filament\Resources;
    // }
 //}
 
+//if (!function_exists('rupiah')) {
+   // function rupiah($angka)
+   // {
+   //     return 'Rp ' . number_format($angka, 0, ',', '.');
+   // }
+//}
+
+// if (!function_exists('rupiah')) {
+//     function rupiah($angka)
+//     {
+//         return 'Rp ' . number_format($angka, 0, ',', '.');
+//     }
+// }
+
 
 use App\Filament\Resources\PembelianResource\Pages;
 use App\Filament\Resources\PembelianResource\RelationManagers;

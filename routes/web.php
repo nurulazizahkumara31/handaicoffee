@@ -9,6 +9,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PresensiExportController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\CobaMidtransController;
+use App\Http\Controllers\GeminiController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,7 +44,7 @@ Route::get('/dashboard', function () {
 
 
 // Route untuk menampilkan halaman login (GET)
-// Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 
 //     return Auth::check() ? redirect('/dashboard') : view('index');
 // })->name('home');
@@ -52,7 +53,14 @@ Route::get('/login', function () {
     return Auth::check() ? redirect('/dashboard') : view('index');
 })->name('home');
 
+// Route::get('/register', [RegisterController::class, 'show'])->name('register');
+// Route::post('/register', [RegisterController::class, 'store']);
+Route::get('/register', [RegisterController::class, 'show'])->name('register')->middleware('guest');
+Route::post('/register', [RegisterController::class,'store']);
 
+
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout')
+->middleware('auth');
 
 // Rute autentikasi
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login')->middleware('guest');
@@ -131,4 +139,11 @@ Route::get('/payment/invoice/{orderId}', [PaymentController::class, 'downloadInv
 Route::get('/payment/{orderId}/invoice-pdf', [PaymentController::class, 'downloadInvoice'])
     ->name('payment.invoice.pdf')
     ->middleware('auth');
+
+//api
+Route::get('/api/news', [App\Http\Controllers\NewsController::class, 'index']);
+
+
+//GEMIN
+Route::post('/chatbot', [GeminiController::class, 'chat']);
 

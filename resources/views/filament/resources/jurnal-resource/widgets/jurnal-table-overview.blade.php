@@ -1,4 +1,7 @@
 <?php
+
+    
+    
     if (!function_exists('rupiah')) {
         function rupiah($angka) {
             return 'Rp ' . number_format($angka, 0, ',', '.');
@@ -8,7 +11,7 @@
 
 <x-filament-widgets::widget>
     <x-filament::section>
-        
+
         <div class="overflow-x-auto">
 
             <!-- Filter Periode Jurnal -->
@@ -16,8 +19,7 @@
 
             <!-- Tambahan filter -->
             <div class="row">
-
-          
+                
             <form wire:submit.prevent="filterJurnal">
                 <label for="periode">Pilih Periode:</label>
                 <input type="month" wire:model="periode" id="periode" class="border rounded px-2 py-1">
