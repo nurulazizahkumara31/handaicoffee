@@ -26,7 +26,7 @@
           <img src="{{ asset('images/logocoffee2.png') }}" alt="Handai Coffee Logo" class="h-10 w-auto">
         </a>
         <div class="hidden md:flex space-x-6 items-center text-sm font-medium">
-          <a href="/" class="hover:text-[var(--secondary-green)] transition">Home</a>
+          <a href="/dashboard" class="hover:text-[var(--secondary-green)] transition">Home</a>
           <a href="/menu" class="hover:text-[var(--secondary-green)] transition">Order</a>
           <a href="/about" class="hover:text-[var(--secondary-green)] transition">About Us</a>
           <a href="/contact" class="hover:text-[var(--secondary-green)] transition">Contact</a>
@@ -73,6 +73,17 @@
       </div>
     </div>
   </section>
+ 
+
+  <!-- Chatbot Bubble -->
+  <div id="chatBubble" class="fixed bottom-5 right-5 bg-green-700 text-white rounded-full w-14 h-14 flex items-center justify-center cursor-pointer shadow-lg">
+    💬
+  </div>
+  <div id="chatWindow" class="fixed bottom-20 right-5 bg-white w-80 max-h-96 rounded-lg shadow-lg p-4 hidden border border-green-200 z-[9999]">
+    <div class="font-bold text-green-700 mb-2">Tanya Handai</div>
+    <div id="chatMessages" class="text-sm mb-2 overflow-y-auto max-h-52 h-52 pr-1 space-y-2"></div>
+    <input type="text" id="chatInput" placeholder="Ketik pertanyaan..." class="w-full border rounded px-2 py-1 text-sm">
+  </div>
 
   <!-- Products Section -->
   <section id="products" class="bg-green-50 py-20">
@@ -112,11 +123,13 @@
     <p class="text-center text-sm">&copy; 2025 Handai Coffee. All Rights Reserved.</p>
   </footer>
 
-  <!-- Script: Dropdown & Fetch News -->
+  <!-- Script -->
   <script>
+    // Dropdown and fetch logic (unchanged)
     document.getElementById("menu-button")?.addEventListener("click", () => {
       document.getElementById("mobile-menu")?.classList.toggle("hidden");
     });
+
     const dropdownBtn = document.querySelector('.relative');
     dropdownBtn?.addEventListener('click', () => {
       dropdownBtn.querySelector('#dropdown-menu')?.classList.toggle('hidden');
@@ -151,7 +164,39 @@
       }
     }
     document.addEventListener('DOMContentLoaded', fetchNews);
+
+    // Chatbot Logic
+    const chatBubble = document.getElementById('chatBubble');
+    const chatWindow = document.getElementById('chatWindow');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+
+    chatBubble.addEventListener('click', () => {
+      chatWindow.classList.toggle('hidden');
+      chatInput.focus();
+    });
+
+    chatInput.addEventListener('keypress', async function (e) {
+      if (e.key === 'Enter') {
+        const message = chatInput.value.trim();
+        if (!message) return;
+        chatMessages.innerHTML += `<div><b>Kamu:</b> ${message}</div>`;
+        chatInput.value = '...';
+
+        const res = await fetch('/api/chatbot', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message })
+        });
+
+        const data = await res.json();
+        chatMessages.innerHTML += `<div><b>Handai:</b> ${data.reply}</div>`;
+        chatInput.value = '';
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+    });
   </script>
+
 
 </body>
 </html>
