@@ -40,8 +40,11 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 // Route untuk memproses login (POST)
 Route::post('/login', [LoginController::class, 'login']);
 
-Route::get('/register', [RegisterController::class, 'show'])->name('register');
-Route::post('/register', [RegisterController::class, 'store']);
+// Route::get('/register', [RegisterController::class, 'show'])->name('register');
+// Route::post('/register', [RegisterController::class, 'store']);
+Route::get('/register', [RegisterController::class, 'show'])->name('register')->middleware('guest');
+Route::post('/register', [RegisterController::class,'store']);
+
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout')
 ->middleware('auth');
