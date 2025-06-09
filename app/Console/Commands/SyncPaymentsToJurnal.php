@@ -17,7 +17,7 @@ class SyncPaymentsToJurnal extends Command
 
     public function handle()
     {
-        $payments = Payment::where('transaction_status', 'paid')
+        $payments = Payment::where('transaction_status', 'settlement')
             ->where('jurnal_created', 0)
             ->get();
 
