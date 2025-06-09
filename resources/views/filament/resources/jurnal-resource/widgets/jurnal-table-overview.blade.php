@@ -28,7 +28,7 @@
                 <br><br>
                
                 <div class="col-sm-12" style="background-color:white;" align="center">
-                    <b>Toko Mukena</b><br>
+                    <b>Handai Coffee</b><br>
                     <b>Jurnal Umum</b><br>
                     <b>Periode {{ $periode ? \Carbon\Carbon::createFromFormat('Y-m', $periode)->translatedFormat('F Y') : now()->translatedFormat('F Y') }} </b><br>
                 </div>
