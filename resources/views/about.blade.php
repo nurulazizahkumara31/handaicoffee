@@ -35,7 +35,7 @@
 
         <!-- Menu -->
         <div class="hidden md:flex space-x-6 items-center">
-          <a href="/" class="hover:text-[var(--secondary-green)] text-[var(--primary-green)]">Home</a>
+          <a href="/dashboard" class="hover:text-[var(--secondary-green)] text-[var(--primary-green)]">Home</a>
           <a href="/menu" class="hover:text-[var(--secondary-green)] text-[var(--primary-green)]">Order</a>
           <a href="/about" class="hover:text-[var(--secondary-green)] text-[var(--primary-green)] font-bold">About Us</a>
           <a href="/contact" class="hover:text-[var(--secondary-green)] text-[var(--primary-green)]">Contact</a>

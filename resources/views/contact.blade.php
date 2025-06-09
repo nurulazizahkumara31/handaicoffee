@@ -35,7 +35,7 @@
 
         <!-- Desktop Menu -->
         <div class="hidden md:flex space-x-6 items-center" id="nav-menu">
-          <a href="/" class="hover:text-[var(--secondary-green)] text-[var(--primary-green)] {{ Request::is('/') ? 'font-bold' : '' }}">Home</a>
+          <a href="/dashboard" class="hover:text-[var(--secondary-green)] text-[var(--primary-green)] {{ Request::is('/') ? 'font-bold' : '' }}">Home</a>
           <a href="/menu" class="hover:text-[var(--secondary-green)] text-[var(--primary-green)] {{ Request::is('menu') ? 'font-bold' : '' }}">Order</a>
           <a href="/about" class="hover:text-[var(--secondary-green)] text-[var(--primary-green)] {{ Request::is('about') ? 'font-bold' : '' }}">About Us</a>
           <a href="/contact" class="hover:text-[var(--secondary-green)] text-[var(--primary-green)] {{ Request::is('contact') ? 'font-bold' : '' }}">Contact</a>
