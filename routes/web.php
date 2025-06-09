@@ -54,6 +54,10 @@ Route::get('/login', function () {
 
 
 
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout')
+->middleware('auth');
+
+
 // Rute autentikasi
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'login']);
@@ -131,4 +135,8 @@ Route::get('/payment/invoice/{orderId}', [PaymentController::class, 'downloadInv
 Route::get('/payment/{orderId}/invoice-pdf', [PaymentController::class, 'downloadInvoice'])
     ->name('payment.invoice.pdf')
     ->middleware('auth');
+
+//api
+Route::get('/api/news', [App\Http\Controllers\NewsController::class, 'index']);
+
 
