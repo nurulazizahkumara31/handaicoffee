@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-    
-        Schema::table('presensis', function (Blueprint $table) {
-            $table->enum('status', ['Hadir', 'Alfa', 'Izin', 'Sakit'])->default('Hadir');
-        });
         
+        Schema::create('jurnal', function (Blueprint $table) {
+            $table->id();
+            $table->date('tgl');
+            $table->string('no_referensi')->nullable();
+            $table->string('deskripsi')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,8 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('presensis', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('jurnal');
     }
 };
