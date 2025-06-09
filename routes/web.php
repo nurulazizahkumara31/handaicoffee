@@ -9,6 +9,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PresensiExportController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\CobaMidtransController;
+use App\Http\Controllers\GeminiController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -141,3 +142,8 @@ Route::get('/payment/{orderId}/invoice-pdf', [PaymentController::class, 'downloa
 
 //api
 Route::get('/api/news', [App\Http\Controllers\NewsController::class, 'index']);
+
+
+//GEMIN
+Route::post('/chatbot', [GeminiController::class, 'chat']);
+
