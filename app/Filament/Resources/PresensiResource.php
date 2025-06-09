@@ -42,7 +42,6 @@ class PresensiResource extends Resource
                     ->required(),
                 Forms\Components\TimePicker::make('jam_masuk')
                 ->displayFormat('H:i'),
-                
                 Forms\Components\TimePicker::make('jam_keluar'),
                 Select::make('status')
                     ->label('Status Kehadiran')
