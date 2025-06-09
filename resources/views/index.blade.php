@@ -95,6 +95,13 @@
 
     </div>
   </section>
+  <section id="news" class="container mx-auto px-4 py-12">
+    <h2 class="text-3xl font-bold text-center mb-10 text-[var(--primary-green)]">Berita Seputar Kopi</h2>
+    <div id="news-container" class="grid md:grid-cols-2 gap-6">
+      <!-- Artikel akan muncul via JS -->
+    </div>
+  </section>
+
 
   <!-- Footer -->
   <footer class="text-center py-4 bg-white border-t border-[var(--primary-green)]">
@@ -109,6 +116,47 @@
       mobileMenu.classList.toggle("hidden");
     });
   </script>
+  
+      <!-- Script ambil berita dari backend -->
+      <script>
+      async function fetchNews() {
+        const url = '/api/news';
+
+        try {
+          const response = await fetch(url);
+          const data = await response.json();
+          const newsContainer = document.getElementById('news-container');
+
+          if (data.articles && data.articles.length > 0) {
+            data.articles.slice(0, 4).forEach(article => {
+              const html = `
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                  <img src="${article.urlToImage || 'https://via.placeholder.com/400x200'}" alt="News Image" class="w-full h-48 object-cover">
+                  <div class="p-4">
+                    <h3 class="text-lg font-bold mb-2 text-[var(--primary-green)]">${article.title}</h3>
+                    <p class="text-sm mb-2">${article.description || ''}</p>
+                    <a href="${article.url}" target="_blank" class="text-[var(--primary-green)] hover:text-[var(--secondary-green)] text-sm font-semibold">Baca Selengkapnya</a>
+                  </div>
+                </div>
+              `;
+              newsContainer.innerHTML += html;
+            });
+          } else {
+            newsContainer.innerHTML = '<p class="text-center text-gray-500">Tidak ada berita ditemukan.</p>';
+          }
+        } catch (err) {
+          console.error(err);
+          document.getElementById('news-container').innerHTML =
+            '<p class="text-center text-red-500">Gagal memuat berita.</p>';
+        }
+      }
+
+      document.addEventListener('DOMContentLoaded', fetchNews);
+    </script>
+
+</body>
+</html>
+
 
 </body>
 </html>

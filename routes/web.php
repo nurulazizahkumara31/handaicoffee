@@ -43,8 +43,6 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::get('/register', [RegisterController::class, 'show'])->name('register');
 Route::post('/register', [RegisterController::class, 'store']);
 
-
-
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout')
 ->middleware('auth');
 
@@ -97,4 +95,8 @@ Route::get('/payment/invoice/{orderId}', [PaymentController::class, 'downloadInv
 Route::get('/payment/{orderId}/invoice-pdf', [PaymentController::class, 'downloadInvoice'])
     ->name('payment.invoice.pdf')
     ->middleware('auth');
+
+//api
+Route::get('/api/news', [App\Http\Controllers\NewsController::class, 'index']);
+
 
