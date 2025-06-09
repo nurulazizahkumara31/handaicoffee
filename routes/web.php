@@ -43,7 +43,7 @@ Route::get('/dashboard', function () {
 
 
 // Route untuk menampilkan halaman login (GET)
-// Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 
 //     return Auth::check() ? redirect('/dashboard') : view('index');
 // })->name('home');
@@ -52,11 +52,14 @@ Route::get('/login', function () {
     return Auth::check() ? redirect('/dashboard') : view('index');
 })->name('home');
 
+// Route::get('/register', [RegisterController::class, 'show'])->name('register');
+// Route::post('/register', [RegisterController::class, 'store']);
+Route::get('/register', [RegisterController::class, 'show'])->name('register')->middleware('guest');
+Route::post('/register', [RegisterController::class,'store']);
 
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout')
 ->middleware('auth');
-
 
 // Rute autentikasi
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login')->middleware('guest');
