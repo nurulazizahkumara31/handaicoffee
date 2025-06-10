@@ -7,11 +7,14 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
+        if (!Schema::hasTable('presensis')) {
+}  
         Schema::create('presensis', function (Blueprint $table) {
             $table->id();
 
             // Kolom foreign key
             $table->unsignedBigInteger('user_id');
+            $table->foreign('pegawai_id')->references('id_pegawai')->on('pegawai');
 
             $table->date('tanggal');
             $table->time('jam_masuk')->nullable();

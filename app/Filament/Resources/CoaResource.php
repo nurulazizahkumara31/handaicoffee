@@ -36,6 +36,7 @@ class CoaResource extends Resource
                     TextInput::make('kode_akun')
                         ->required()
                         ->placeholder('Masukkan kode akun')
+                        ->unique(ignoreRecord: true)
                     ,
                     TextInput::make('header_akun')
                         ->required()

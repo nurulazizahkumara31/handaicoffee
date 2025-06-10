@@ -8,11 +8,11 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Produk;
-use App\Models\pelanggan;
+use App\Models\Pelanggan;
 use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
-{
+{   
     public function addToCart(Request $request, $productId)
     {
         $product = Product::find($productId);
@@ -116,14 +116,18 @@ public function checkout(Request $request)
 
     // Ambil data pelanggan dari user login
     $user = auth()->user();
+
+    // Baris ini adalah tempat kode pelanggan berada
     $pelanggan = Pelanggan::firstOrCreate(
         ['nama' => $user->name],
         [
             'email' => $user->email ?? null,
-            'telepon' => '0000000000', // Ubah sesuai data inputan jika tersedia
-            'alamat' => 'Alamat default', // Bisa tambahkan input di form nanti
+            'telepon' => '0000000000',
+            'alamat' => 'Alamat default',
+            'user_id' => $user->id,
         ]
     );
+    
 
     DB::beginTransaction();
     try {
@@ -153,7 +157,7 @@ public function checkout(Request $request)
         DB::commit();
         session()->forget('cart');
 
-        return redirect()->route('payment.page', ['order' => $order->id])->with('success', 'Silakan lanjutkan pembayaran.');
+        return redirect()->route('payment.show', ['orderId' => $order->id])->with('success', 'Silakan lanjutkan pembayaran.');
 
     } catch (\Exception $e) {
         DB::rollBack();

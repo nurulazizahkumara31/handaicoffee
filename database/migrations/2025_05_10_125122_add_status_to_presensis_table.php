@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+    
         Schema::table('presensis', function (Blueprint $table) {
             $table->enum('status', ['Hadir', 'Alfa', 'Izin', 'Sakit'])->default('Hadir');
         });

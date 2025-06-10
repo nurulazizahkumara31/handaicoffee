@@ -18,33 +18,36 @@ class LoginController extends Controller
 
     // Proses login
     public function login(Request $request)
-    {
-        // Validasi data login (email dan password)
-        $credentials = $request->validate([
-            'email' => 'required|email',  // pastikan email valid
-            'password' => 'required|string|min:6',  // password harus string dan minimal 6 karakter
-        ]);
+{
+    // Validasi data login
+    $credentials = $request->validate([
+        'email' => 'required|email',
+        'password' => 'required|string|min:6',
+    ]);
 
-        // Cek jika ada user yang cocok dengan email yang dimasukkan
-        $user = User::where('email', $request->email)->first();
+    // Ambil user berdasarkan email
+    $user = User::where('email', $request->email)->first();
 
-        // Jika user ditemukan dan password valid
-        if ($user && Hash::check($request->password, $user->password)) {
-            // Melakukan login manual
-            Auth::login($user);
-
-            // Regenerasi session untuk keamanan
-            $request->session()->regenerate();
-
-            // Redirect ke halaman yang diinginkan setelah login berhasil
-            return redirect()->intended('/dashboard');
+    // Cek password dan user_group
+    if ($user && Hash::check($request->password, $user->password)) {
+        if ($user->user_group !== 'customer') {
+            return back()->withErrors([
+                'email' => 'Email atau password salah.',
+            ])->withInput();
         }
 
-        // Jika login gagal, kembali ke halaman login dengan pesan error
-        return back()->withErrors([
-            'email' => 'Email atau password salah.',
-        ])->withInput();
+        // Login pengguna
+        Auth::login($user);
+        $request->session()->regenerate();
+
+        return redirect()->intended('/dashboard');
     }
+
+    // Jika login gagal
+    return back()->withErrors([
+        'email' => 'Email atau password salah.',
+    ])->withInput();
+}
 
     // Proses logout
     public function logout(Request $request)

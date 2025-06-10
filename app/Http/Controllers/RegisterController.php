@@ -40,7 +40,7 @@ class RegisterController extends Controller
         Auth::login($user);
 
         // Redirect ke halaman utama atau dashboard setelah registrasi
-        return redirect()->route('register')->with('success', 'Registrasi berhasil! Silakan login.');
+        return redirect()->route('das')->with('success', 'Registrasi berhasil! Silakan login.');
 
     }
 }

@@ -21,6 +21,18 @@ class ProductController extends Controller
     }
 
     /**
+     * Display all products on the dashboard page.
+     */
+    public function dashboard()
+    {
+        // Fetch all products from the 'produk' table
+        $products = Product::all();  // Using Product model
+
+        // Send product data to the 'menu' view
+        return view('dashboard', compact('products'));
+    }
+
+    /**
      * Display product details based on the ID
      */
     public function show($id)
