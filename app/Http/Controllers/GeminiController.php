@@ -10,30 +10,30 @@ class GeminiController extends Controller
     public function chat(Request $request)
     {
         $userMessage = $request->input('message');
-        $systemPrompt = "Kamu adalah chatbot ramah dari Handai Coffee. Tugasmu adalah membantu pelanggan tentang jam buka, lokasi, cara pesan, info menu, dan promo.";
+
+        $apiKey = env('GEMINI_API_KEY');
+        $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=$apiKey";
 
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
-        ])->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" . env('GEMINI_API_KEY'), [
-            'contents' => [
-                [
-                    'role' => 'user',
-                    'parts' => [
-                        ['text' => "Kamu adalah chatbot ramah dari Handai Coffee. Tugasmu adalah membantu pelanggan tentang jam buka, lokasi, cara pesan, info menu, dan promo."]
+        ])->post($url, [
+                    'contents' => [
+                        [
+                            'parts' => [
+                                [
+                                    'text' => "Kamu adalah chatbot ramah dari Handai Coffee. Tugasmu adalah membantu pelanggan tentang jam buka, lokasi, cara pesan, info menu, dan promo.\n\nPesan dari pelanggan: $userMessage"
+                                ]
+                            ]
+                        ]
                     ]
-                ],
-                [
-                    'role' => 'user',
-                    'parts' => [
-                        ['text' => $userMessage]
-                    ]
-                ]
-            ]
-            
-        ]);
+                ]);
 
         if ($response->failed()) {
-            return response()->json(['reply' => 'Maaf, sistem sedang sibuk. Coba lagi nanti.'], 500);
+            return response()->json([
+                'reply' => 'Gagal ambil respon dari Gemini.',
+                'status' => $response->status(),
+                'error' => $response->body(),
+            ], 500);
         }
 
         $data = $response->json();
@@ -42,3 +42,4 @@ class GeminiController extends Controller
         return response()->json(['reply' => $reply]);
     }
 }
+?>

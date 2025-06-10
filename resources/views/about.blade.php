@@ -71,7 +71,7 @@
     <h1 class="text-4xl font-bold text-center mb-8">About Handai Coffee</h1>
     <div class="md:flex md:items-center md:space-x-10">
       <div class="md:w-1/2 mb-8 md:mb-0">
-        <img src="{{ asset('images/about-coffee.jpg') }}" alt="About Handai Coffee" class="rounded-xl shadow-md">
+        <img src="{{ asset('images/mockupdash.png') }}" alt="About Handai Coffee" class="rounded-xl shadow-md">
       </div>
       <div class="md:w-1/2">
         <p class="mb-4 text-lg leading-relaxed">

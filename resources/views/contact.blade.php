@@ -71,7 +71,7 @@
     <h1 class="text-4xl font-bold text-center mb-8">Contact Us</h1>
     <div class="md:flex md:items-start md:space-x-10">
       <div class="md:w-1/2 mb-8 md:mb-0">
-        <img src="{{ asset('images/contact-coffee.jpg') }}" alt="Contact Handai Coffee" class="rounded-xl shadow-md w-full">
+        <img src="{{asset('images/mockupdash.png') }}" alt="Contact Handai Coffee" class="rounded-xl shadow-md w-full">
       </div>
       <div class="md:w-1/2">
         <p class="mb-4 text-lg leading-relaxed">
@@ -82,7 +82,7 @@
           <li><strong>Telepon:</strong> +62 812-3456-7890</li>
           <li><strong>Alamat:</strong> Jl. Kopi No. 1, Bandung, Indonesia</li>
         </ul>
-        <a href="mailto:info@handaicoffee.com" class="inline-block mt-4 bg-[var(--primary-green)] text-white px-6 py-2 rounded hover:bg-green-700">Kirim Email</a>
+        <a href="https://www.instagram.com/handaicoffee/" class="inline-block mt-4 bg-[var(--primary-green)] text-white px-6 py-2 rounded hover:bg-green-700">Lihat Instagram</a>
       </div>
     </div>
   </section>
