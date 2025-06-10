@@ -90,22 +90,18 @@
     <div class="container mx-auto px-4">
       <h2 class="text-3xl font-bold text-center mb-12">Our Signature Products</h2>
       <div class="grid md:grid-cols-3 gap-10">
-        <div class="bg-white rounded-3xl shadow-xl overflow-hidden transform hover:scale-105 transition">
-          <img src="images/susukurma.png" alt="Susu Kurma" class="w-full h-60 object-contain p-6">
-          <div class="p-6">
-            <h3 class="text-xl font-bold mb-2">Susu Kurma</h3>
-            <p class="mb-4 text-sm text-gray-600">Susu segar + kurma asli, minuman sehat & nikmat untuk semua kalangan.</p>
-            <a href="/menu" class="inline-block bg-[var(--primary-green)] text-white px-4 py-2 rounded-full hover:bg-green-700">Order</a>
-          </div>
+        @foreach ($products as $product)
+      <div class="bg-white text-[var(--primary-green)] rounded-xl shadow-lg overflow-hidden">
+        <div class="flex justify-center items-center bg-white max-h-80 p-4">
+          <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name_product }}" class="object-contain max-h-72 w-auto mx-auto">
         </div>
-        <div class="bg-white rounded-3xl shadow-xl overflow-hidden transform hover:scale-105 transition">
-          <img src="images/kopisusu.png" alt="Kopi Susu Gula Aren" class="w-full h-60 object-contain p-6">
-          <div class="p-6">
-            <h3 class="text-xl font-bold mb-2">Kopi Susu Gula Aren</h3>
-            <p class="mb-4 text-sm text-gray-600">Espresso + susu segar dengan cita rasa kaya dan khas Indonesia.</p>
-            <a href="/menu" class="inline-block bg-[var(--primary-green)] text-white px-4 py-2 rounded-full hover:bg-green-700">Order</a>
-          </div>
+        <div class="p-6">
+          <h3 class="text-xl font-bold text-[var(--primary-green)] mb-2">{{ $product->name_product }}</h3>
+          <p class="mb-4">{{ $product->description }}</p>
+          <a href="menu" class="bg-[var(--primary-green)] text-white px-4 py-2 rounded hover:bg-green-700">Order</a>
         </div>
+      </div>
+      @endforeach
       </div>
     </div>
   </section>

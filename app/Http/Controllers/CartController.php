@@ -8,11 +8,11 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Produk;
-use App\Models\pelanggan;
+use App\Models\Pelanggan;
 use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
-{
+{   
     public function addToCart(Request $request, $productId)
     {
         $product = Product::find($productId);

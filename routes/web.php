@@ -33,15 +33,8 @@ use App\Http\Controllers\SettingsController;
 Route::get('/', function () {
 
     return view('index');
-});
+})->middleware('guest');
 Route::get('/presensi/export-pdf', [PresensiExportController::class, 'exportPdf'])->name('presensi.export.pdf');
-
-// Route ke halaman dashboard
-Route::get('/dashboard', function () {
-    return view('dashboard');})
-->name('das')
-->middleware('auth');
-
 
 // Route untuk menampilkan halaman login (GET)
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -71,10 +64,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->midd
 
 // Rute terproteksi
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-
+    Route::get('/dashboard', [ProductController::class, 'dashboard'])->name('das');
     Route::get('/menu', [ProductController::class, 'index'])->name('menu');
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/add/{id}', [CartController::class, 'addToCart'])->name('cart.add');

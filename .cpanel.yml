@@ -1,9 +1,17 @@
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/kvthsnjw/d3sia4703-1.produkd3sia.com
-    - cd $DEPLOYPATH
+    # 1. Install dependencies
+    - cd ~/repositories/d3sia4703-1
     - /opt/cpanel/composer/bin/composer install --no-dev --optimize-autoloader
+
+    # 2. Laravel optimisasi
     - php artisan migrate --force
     - php artisan config:cache
     - php artisan route:cache
     - php artisan view:cache
+
+    # 3. Buat ulang storage link jika perlu
+    - php artisan storage:link || true
+
+    # 4. Copy isi folder public ke public_html
+    - rsync -av --delete ~/repositories/d3sia4703-1/public/ ~/d3sia4703-1.produkd3sia.com/
