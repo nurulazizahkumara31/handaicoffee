@@ -1,7 +1,8 @@
 <?php 
 namespace App\Filament\Widgets;
 
-
+use Filament\Widgets\ChartWidget;
+use App\Models\Order;
 
 // use App\Models\PenjualanBarang;
 

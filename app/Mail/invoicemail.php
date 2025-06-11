@@ -8,8 +8,6 @@ use App\Models\Order;
 
 class InvoiceMail extends Mailable
 {
-    use Queueable, SerializesModels;
-
     public $order;
 
     public function __construct(Order $order)
@@ -20,9 +18,7 @@ class InvoiceMail extends Mailable
     public function build()
     {
         return $this->subject('Invoice Pembayaran #' . $this->order->id)
-                    ->view('emails.invoice'); // pakai file Blade
+                    ->view('emails.invoice_email'); // pakai file Blade
     }
 }
-
-
 ?>

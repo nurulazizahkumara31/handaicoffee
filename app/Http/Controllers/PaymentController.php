@@ -426,5 +426,3 @@ class PaymentController extends Controller
     return $pdf->download('invoice_order_' . $orderId . '.pdf');
 }
 }
-
-
