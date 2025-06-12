@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Product;  // Correct namespace for the ProductCon
 use Illuminate\Http\Request;
 use App\Models\Product;  // Ensure the correct Product model is being used
 use App\Http\Controllers\Controller;  // Don't forget to include the base Controller class
+use App\Models\Voucher;
 
 class ProductController extends Controller
 {
@@ -39,8 +40,12 @@ class ProductController extends Controller
     {
         // Fetch product by ID
         $product = Product::findOrFail($id);  // Using Product model
+        $vouchers = Voucher::where('active', true)
+        ->where('start_date', '<=', now())
+        ->where('expiry_date', '>=', now())
+        ->get();
 
-        return view('product.show', compact('product'));
+        return view('product.show', compact('product', 'vouchers'));
     }
 
     /**

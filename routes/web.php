@@ -133,7 +133,10 @@ Route::get('/payment/{orderId}/invoice-pdf', [PaymentController::class, 'downloa
 //api
 Route::get('/api/news', [App\Http\Controllers\NewsController::class, 'index']);
 
+//GEMINI
+Route::post('/api/chatbot', [App\Http\Controllers\GeminiController::class, 'chat']);
 
-//GEMIN
-Route::post('/chatbot', [GeminiController::class, 'chat']);
+// order dari show details
+Route::post('/product/order-now/{id}', [App\Http\Controllers\CartController::class, 'orderNow'])->name('product.orderNow');
+
 

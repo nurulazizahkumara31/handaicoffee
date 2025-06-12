@@ -71,27 +71,35 @@
 
   <!-- Menu Section -->
   <section class="container mx-auto px-4 py-20">
-    <h2 class="text-4xl font-bold text-center mb-12">Choose Your Coffee</h2>
-    <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-10">
-      @foreach ($products as $product)
-      <div class="bg-white rounded-3xl shadow-xl transform hover:scale-105 transition overflow-hidden">
-        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name_product }}" class="w-full h-60 object-contain p-6">
-        <div class="p-6">
-          <h3 class="text-xl font-bold mb-2">{{ $product->name_product }}</h3>
-          <p class="text-lg font-semibold">Rp{{ number_format($product->price, 0, ',', '.') }}</p>
-          <p class="text-sm text-gray-600 mt-2 mb-4">{{ $product->description }}</p>
-          <form action="{{ route('cart.add', $product->id_produk) }}" method="POST" class="flex items-center gap-2 mt-4">
-            @csrf
-            <button type="button" onclick="decreaseQty(this)" class="px-3 py-1 bg-gray-200 text-gray-700 rounded">-</button>
-            <input type="number" name="quantity" value="1" min="1" class="w-12 text-center border border-gray-300 rounded" />
-            <button type="button" onclick="increaseQty(this)" class="px-3 py-1 bg-gray-200 text-gray-700 rounded">+</button>
-            <button type="submit" class="ml-auto bg-[var(--primary-green)] text-white px-4 py-1 rounded hover:bg-green-700">Add</button>
-          </form>
-        </div>
+  <h2 class="text-4xl font-bold text-center mb-12">Choose Your Coffee</h2>
+  <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-10">
+    @foreach ($products as $product)
+    <div class="bg-white rounded-3xl shadow-xl transform hover:scale-105 transition overflow-hidden">
+      <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name_product }}" class="w-full h-60 object-contain p-6">
+      <div class="p-6">
+        <h3 class="text-xl font-bold mb-2">{{ $product->name_product }}</h3>
+        <p class="text-lg font-semibold">Rp{{ number_format($product->price, 0, ',', '.') }}</p>
+        <p class="text-sm text-gray-600 mt-2 mb-4">{{ $product->description }}</p>
+
+        {{-- ✅ Tambahkan View Details Button di sini --}}
+        <a href="{{ route('product.show', $product->id_produk) }}"
+           class="inline-block mb-4 text-sm text-white bg-[var(--secondary-green)] px-4 py-2 rounded hover:bg-green-600 transition">
+          View Details
+        </a>
+
+        <form action="{{ route('cart.add', $product->id_produk) }}" method="POST" class="flex items-center gap-2 mt-2">
+          @csrf
+          <button type="button" onclick="decreaseQty(this)" class="px-3 py-1 bg-gray-200 text-gray-700 rounded">-</button>
+          <input type="number" name="quantity" value="1" min="1" class="w-12 text-center border border-gray-300 rounded" />
+          <button type="button" onclick="increaseQty(this)" class="px-3 py-1 bg-gray-200 text-gray-700 rounded">+</button>
+          <button type="submit" class="ml-auto bg-[var(--primary-green)] text-white px-4 py-1 rounded hover:bg-green-700">Add</button>
+        </form>
       </div>
-      @endforeach
     </div>
-  </section>
+    @endforeach
+  </div>
+</section>
+
 
   <!-- Footer -->
   <footer class="bg-[var(--primary-green)] text-white py-6">

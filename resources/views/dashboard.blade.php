@@ -106,8 +106,8 @@
     </div>
   </section>
 
-  <!-- News Section -->
-  <section id="news" class="bg-white py-20">
+    <!-- News Section -->
+    <section id="news" class="bg-white py-20">
     <div class="container mx-auto px-4">
       <h2 class="text-3xl font-bold text-center mb-12">Berita Seputar Kopi</h2>
       <div id="news-container" class="grid md:grid-cols-2 gap-8"></div>
@@ -119,13 +119,11 @@
     <p class="text-center text-sm">&copy; 2025 Handai Coffee. All Rights Reserved.</p>
   </footer>
 
-  <!-- Script -->
+  <!-- Script: Dropdown & Fetch News -->
   <script>
-    // Dropdown and fetch logic (unchanged)
     document.getElementById("menu-button")?.addEventListener("click", () => {
       document.getElementById("mobile-menu")?.classList.toggle("hidden");
     });
-
     const dropdownBtn = document.querySelector('.relative');
     dropdownBtn?.addEventListener('click', () => {
       dropdownBtn.querySelector('#dropdown-menu')?.classList.toggle('hidden');
@@ -161,6 +159,7 @@
     }
     document.addEventListener('DOMContentLoaded', fetchNews);
 
+
     // Chatbot Logic
     const chatBubble = document.getElementById('chatBubble');
     const chatWindow = document.getElementById('chatWindow');
@@ -173,24 +172,35 @@
     });
 
     chatInput.addEventListener('keypress', async function (e) {
-      if (e.key === 'Enter') {
-        const message = chatInput.value.trim();
-        if (!message) return;
-        chatMessages.innerHTML += `<div><b>Kamu:</b> ${message}</div>`;
-        chatInput.value = '...';
+    if (e.key === 'Enter') {
+      const message = chatInput.value.trim();
+      if (!message) return;
 
-        const res = await fetch('/api/chatbot', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message })
-        });
+      chatMessages.innerHTML += `<div><b>Kamu:</b> ${message}</div>`;
 
-        const data = await res.json();
-        chatMessages.innerHTML += `<div><b>Handai:</b> ${data.reply}</div>`;
-        chatInput.value = '';
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-      }
-    });
+      // Tambahkan typing indicator
+      chatMessages.innerHTML += `<div id="typing-indicator"><b>Handai:</b> <em>sedang mengetik...</em></div>`;
+      chatInput.value = '';
+
+      // Kirim ke API Gemini
+      const res = await fetch('/api/chatbot', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message })
+      });
+
+      const data = await res.json();
+
+      // Hapus typing indicator
+      const typingDiv = document.getElementById('typing-indicator');
+      if (typingDiv) typingDiv.remove();
+
+      // Tampilkan jawaban dari Gemini
+      chatMessages.innerHTML += `<div><b>Handai:</b> ${data.reply}</div>`;
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+  });
+
   </script>
 
 

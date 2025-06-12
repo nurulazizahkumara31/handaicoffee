@@ -164,6 +164,4 @@ public function checkout(Request $request)
         return back()->with('error', 'Gagal checkout: ' . $e->getMessage());
     }
 }
-
-
 }
