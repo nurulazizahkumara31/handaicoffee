@@ -32,6 +32,12 @@ class ProductController extends Controller
         // Send product data to the 'menu' view
         return view('dashboard', compact('products'));
     }
+    public function first()
+{
+    $products = Product::all(); // gunakan pagination jika diperlukan
+    return view('index', compact('products'));
+}
+
 
     /**
      * Display product details based on the ID

@@ -31,10 +31,8 @@ use App\Http\Controllers\SettingsController;
 
 
 // Halaman utama
-Route::get('/', function () {
+Route::get('/', [ProductController::class, 'first'])->middleware('guest');
 
-    return view('index');
-})->middleware('guest');
 Route::get('/presensi/export-pdf', [PresensiExportController::class, 'exportPdf'])->name('presensi.export.pdf');
 
 // Route untuk menampilkan halaman login (GET)
