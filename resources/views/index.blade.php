@@ -36,13 +36,13 @@
       </div>
     </div>
   </nav>
-
+  <!-- Nurul -->
   <!-- Hero Section -->
   <section class="container mx-auto px-4 py-16 flex flex-col md:flex-row items-center justify-between">
     <div class="md:w-1/2 mb-8 md:mb-0">
       <h1 class="text-5xl font-extrabold mb-6 leading-tight">Brewed Coffee for Your Soul</h1>
       <p class="mb-6 text-gray-700 text-lg">
-        At Handai Coffee, every sip tells a story.<br>
+        Boost Your Study, Sustain Your Health!.<br>
         Nikmati perpaduan aroma dan rasa yang khas dari biji pilihan hingga ke cangkir Anda.<br><br>
         Coba varian favorit kami, <strong>Susu Kurma</strong> yang manis alami dan menyegarkan atau <strong>Kopi Susu Gula Aren</strong> yang klasik dan autentik.
       </p>
