@@ -10,6 +10,7 @@ use App\Http\Controllers\PresensiExportController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\CobaMidtransController;
 use App\Http\Controllers\GeminiController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -142,6 +143,24 @@ Route::post('/product/order-now/{id}', [App\Http\Controllers\CartController::cla
 Route::middleware('auth')->get('/order_history', [App\Http\Controllers\OrderHistoryController::class, 'index'])->name('order.history');
 Route::middleware('auth')->get('/order_history/{order}/invoice', [App\Http\Controllers\OrderHistoryController::class, 'invoice'])->name('order.invoice');
 
+// intropanduan
+Route::post('/intro-seen', function () {
+    Auth::user()->update(['has_seen_intro' => true]);
+    return response()->noContent();
+});
 
+// halaman profil
+Route::get('/profile', function () {
+    return view('profile'); // sesuaikan dengan nama view-mu
+})->middleware('auth');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+});
+
+// music
+Route::get('/music-player', function () {
+    return view('music-player');
+});
 
 

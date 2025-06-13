@@ -6,6 +6,10 @@
   <title>Handai Coffee Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Intro.js CDN -->
+  <link href="https://unpkg.com/intro.js/minified/introjs.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
+
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -75,10 +79,12 @@
   </section>
  
 
-  <!-- Chatbot Bubble -->
-  <div id="chatBubble" class="fixed bottom-5 right-5 bg-green-700 text-white rounded-full w-14 h-14 flex items-center justify-center cursor-pointer shadow-lg">
-    💬
-  </div>
+  <div id="chatBubble" 
+     data-step="1" 
+     data-intro="Kamu bisa ngobrol langsung dengan Handai di sini ya!" 
+     class="fixed bottom-5 right-5 bg-green-700 text-white rounded-full w-14 h-14 flex items-center justify-center cursor-pointer shadow-lg">
+  💬
+</div>
   <div id="chatWindow" class="fixed bottom-20 right-5 bg-white w-80 max-h-96 rounded-lg shadow-lg p-4 hidden border border-green-200 z-[9999]">
     <div class="font-bold text-green-700 mb-2">Tanya Handai</div>
     <div id="chatMessages" class="text-sm mb-2 overflow-y-auto max-h-52 h-52 pr-1 space-y-2"></div>
@@ -118,6 +124,57 @@
   <footer class="bg-[var(--primary-green)] text-white py-6">
     <p class="text-center text-sm">&copy; 2025 Handai Coffee. All Rights Reserved.</p>
   </footer>
+  <!-- Background Music Player
+  <audio id="background-music" loop preload="auto">
+  <source src="{{ asset('audio/lagucafe.mp3') }}" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio> -->
+
+<script>
+  function openMusicPlayer() {
+    const musicWindow = window.open(
+      '/music-player', // ini halaman baru yang akan kita buat
+      'HandaiMusic',
+      'width=300,height=100,left=100,top=100'
+    );
+  }
+</script>
+
+<!-- Music Toggle Button -->
+<button onclick="openMusicPlayer()" 
+        data-step="2"
+        data-intro="Klik tombol ini untuk menyalakan musik cafe 🎵"
+        class="fixed bottom-5 left-5 bg-green-700 hover:bg-green-800 text-white p-3 rounded-full shadow-lg z-50">
+  🎵
+</button>
+
+
+<!-- intro panduan -->
+@if(Auth::user() && !Auth::user()->has_seen_intro)
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    introJs().start();
+    fetch('/intro-seen', { method: 'POST', headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}' } });
+  });
+</script>
+@endif
+
+<script>
+  const music = document.getElementById("background-music");
+  const musicBtn = document.getElementById("music-btn");
+  let isPlaying = false;
+
+  function toggleMusic() {
+    if (isPlaying) {
+      music.pause();
+      musicBtn.innerText = '🎵';
+    } else {
+      music.play().catch(() => alert("Klik dulu tombol ini untuk aktifkan musik 🎵"));
+      musicBtn.innerText = '⏸️';
+    }
+    isPlaying = !isPlaying;
+  }
+</script>
 
   <!-- Script: Dropdown & Fetch News -->
   <script>
