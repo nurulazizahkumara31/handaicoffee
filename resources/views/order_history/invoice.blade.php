@@ -127,7 +127,7 @@
 
     <button onclick="window.print()"
             class="px-4 py-2 bg-[var(--primary-green)] text-white rounded font-semibold text-sm print:hidden">
-        🖨️ Cetak Invoice
+        Cetak Invoice
     </button>
 </div>
 
@@ -173,7 +173,7 @@
         </div>
 
         <div class="footer">
-            Terima kasih atas kepercayaan Anda pada Handai Coffee ☕<br>
+            Terima kasih atas kepercayaan Anda pada Handai Coffee!<br>
             Boost Your Study, Sustain Your Health!
         </div>
     </div>
