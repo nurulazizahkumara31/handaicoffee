@@ -5,7 +5,7 @@ use App\Models\Payment;
 use App\Models\Jurnal;
 use App\Models\JurnalDetail;
 use Carbon\Carbon;
-
+//nurul
 class PaymentObserver
 {
     public function updated(Payment $payment)
