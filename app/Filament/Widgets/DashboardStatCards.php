@@ -8,7 +8,7 @@ use Filament\Widgets\StatsOverviewWidget\Card;
 
 use App\Models\Order;
 use App\Models\Coa;
-use App\Models\pelanggan;
+use App\Models\Pelanggan;
 use Illuminate\Support\Number;
 use Carbon\Carbon;
 
@@ -54,7 +54,7 @@ class DashboardStatCards extends BaseWidget
         };
 
         return [
-            Stat::make('Total Pembeli', pelanggan::count())
+            Stat::make('Total Pembeli', Pelanggan::count())
                 ->description('Jumlah pembeli terdaftar'),
 
             Stat::make('Total Transaksi', Order::count())
