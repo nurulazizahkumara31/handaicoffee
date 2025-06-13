@@ -10,6 +10,7 @@ use App\Http\Controllers\PresensiExportController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\CobaMidtransController;
 use App\Http\Controllers\GeminiController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -138,5 +139,11 @@ Route::post('/api/chatbot', [App\Http\Controllers\GeminiController::class, 'chat
 
 // order dari show details
 Route::post('/product/order-now/{id}', [App\Http\Controllers\CartController::class, 'orderNow'])->name('product.orderNow');
+
+//Order History
+Route::middleware('auth')->get('/order_history', [App\Http\Controllers\OrderHistoryController::class, 'index'])->name('order.history');
+Route::middleware('auth')->get('/order_history/{order}/invoice', [App\Http\Controllers\OrderHistoryController::class, 'invoice'])->name('order.invoice');
+
+
 
 

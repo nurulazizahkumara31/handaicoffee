@@ -18,16 +18,17 @@
 
   <!-- Navbar -->
   <nav class="bg-white shadow-lg sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-16">
         <a href="/" class="flex items-center space-x-2">
           <img src="{{ asset('images/logocoffee2.png') }}" alt="Handai Coffee Logo" class="h-10 w-auto">
         </a>
         <div class="hidden md:flex space-x-6 items-center text-sm font-medium">
           <a href="/dashboard" class="hover:text-[var(--secondary-green)] transition">Home</a>
-          <a href="/menu" class="font-bold border-b-2 border-[var(--primary-green)]">Order</a>
+          <a href="/menu" class="hover:text-[var(--secondary-green)] transition">Order</a>
           <a href="/about" class="hover:text-[var(--secondary-green)] transition">About Us</a>
           <a href="/contact" class="hover:text-[var(--secondary-green)] transition">Contact</a>
+
           @auth
           <div class="relative group">
             <button class="flex items-center px-4 py-2 border border-[var(--primary-green)] rounded-full hover:bg-[var(--secondary-green)] hover:text-white transition">

@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Invoice #{{ $order->id }} | Handai Coffee</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-green: #0d9145;
-            --light-green: #f0fdf4;
+            --light-green: #e7f8ed;
         }
 
         body {
@@ -16,54 +17,46 @@
             padding: 20px;
             background-color: var(--light-green);
             color: #333;
-            font-size: 13px;
+            font-size: 14px;
         }
 
         .invoice-container {
             background-color: #fff;
-            padding: 25px;
-            max-width: 700px;
+            padding: 30px;
+            max-width: 720px;
             margin: auto;
-            border: 1px solid #ccc;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             border-radius: 8px;
+            position: relative;
         }
 
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
         }
 
         .header img {
-            height: 50px;
+            height: 60px;
         }
 
         .header h2 {
             color: var(--primary-green);
             margin: 0;
-            font-size: 20px;
-            text-align: right;
         }
 
         .info {
-            margin-bottom: 20px;
+            margin-top: 20px;
         }
 
         .info p {
             margin: 4px 0;
         }
 
-        h4 {
-            margin-top: 30px;
-            margin-bottom: 10px;
-            color: var(--primary-green);
-        }
-
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 10px;
+            margin-top: 20px;
         }
 
         thead {
@@ -72,7 +65,7 @@
         }
 
         th, td {
-            padding: 8px;
+            padding: 10px;
             border: 1px solid #ddd;
             text-align: left;
         }
@@ -83,27 +76,65 @@
         }
 
         .total-section p {
-            margin: 4px 0;
+            margin: 5px 0;
         }
 
-        .total-section strong {
+        .total-section p strong {
             display: inline-block;
             width: 180px;
         }
 
         .footer {
-            margin-top: 35px;
+            margin-top: 40px;
             text-align: center;
-            font-size: 11px;
             color: #777;
+            font-size: 12px;
         }
+
+        .print-button {
+            text-align: right;
+            margin-bottom: 15px;
+        }
+
+        .print-button button {
+            padding: 8px 16px;
+            background-color: var(--primary-green);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        @media print {
+            .print-button {
+                display: none;
+            }
+        }
+        
     </style>
+    
 </head>
 <body>
+<div class="flex justify-between items-center max-w-5xl mx-auto mb-4">
+    <a href="{{ route('order.history') }}"
+       class="inline-flex items-center gap-1 text-[var(--primary-green)] hover:text-green-700 text-sm font-semibold transition">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        Back
+    </a>
+
+    <button onclick="window.print()"
+            class="px-4 py-2 bg-[var(--primary-green)] text-white rounded font-semibold text-sm print:hidden">
+        🖨️ Cetak Invoice
+    </button>
+</div>
+
     <div class="invoice-container">
         <div class="header">
-            <img src="{{ public_path('images/logocoffee2.png') }}" alt="Handai Coffee Logo">
-            <h2>INVOICE</h2>
+            <img src="{{ asset('images/logocoffee2.png') }}" alt="Handai Coffee Logo">
+            <h2><b>INVOICE PEMBAYARAN</b></h2>
         </div>
 
         <div class="info">
@@ -142,7 +173,7 @@
         </div>
 
         <div class="footer">
-            Terima kasih atas kepercayaan Anda kepada Handai Coffee ☕<br>
+            Terima kasih atas kepercayaan Anda pada Handai Coffee ☕<br>
             Boost Your Study, Sustain Your Health!
         </div>
     </div>

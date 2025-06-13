@@ -44,4 +44,16 @@ class Order extends Model
     {
         return $this->belongsTo(Pelanggan::class);
     }
+
+    // app/Models/Order.php
+    public function orderDetails()
+    {
+        return $this->hasMany(\App\Models\OrderDetail::class);
+    }
+
+    public function payments()
+    {
+        return $this->hasOne(\App\Models\Payment::class); // asumsi 1 order 1 payment
+    }
+
 }
